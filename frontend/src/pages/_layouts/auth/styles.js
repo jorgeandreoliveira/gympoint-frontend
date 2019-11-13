@@ -11,14 +11,14 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   width: 100%;
   max-width: 340px;
-  height: 430px;
+  height: 400px;
   text-align: center;
   background: #ffffff;
 
   img {
     margin-top: 30px;
-    height: 53px;
-    width: 62px;
+    height: 100px;
+    width: 140px;
   }
 
   h1 {
@@ -48,8 +48,7 @@ export const Content = styled.div`
       font-size: 16px;
       font-family: 'Roboto';
       border-radius: 4px;
-      border-width: 1px;
-      border-style: solid;
+      border: 1px solid #e9e9e9;
       height: 44px;
       width: 300px;
       margin: 3px 20px 10px;
@@ -58,7 +57,7 @@ export const Content = styled.div`
 
     button {
       margin-left: 20px;
-      margin-top: 10px;
+      margin-bottom: 30px;
       height: 44px;
       width: 300px;
       background: #EE4D64;
