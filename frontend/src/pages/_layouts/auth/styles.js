@@ -11,7 +11,6 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   width: 100%;
   max-width: 340px;
-  height: 400px;
   text-align: center;
   background: #ffffff;
 
@@ -53,6 +52,15 @@ export const Content = styled.div`
       width: 300px;
       margin: 3px 20px 10px;
       padding-left: 10px;      
+    }
+
+    span {
+      padding-bottom: 10px;
+      align-self: flex-start;
+      padding-left: 20px;
+      text-align: left;
+      color: brown;
+      font-weight: bold;
     }
 
     button {

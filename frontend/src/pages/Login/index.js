@@ -1,17 +1,43 @@
 import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
+
+import api from "../../services/api";
+import history from '../../services/history';
+import { login } from "../../services/auth";
+
 import Logo from '../assets/logo.png'
 
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .email('Informe um e-mail válido')
+    .required('O e-mail é obrigatório'),
+  password: Yup.string().required('A senha é obrigatória'),
+});
+
 export default function Login() {
+
+  async function handleSubmit(data) {
+
+    const { email, password } = data;
+
+    const response = await api.post("/sessions", { email, password });
+    login(response.data.token);
+    history.push("/Alunos");
+    
+  }
+
   return (
     <>
       <img src={Logo} alt="Logo" />
-      <form>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <h2>SEU E-MAIL</h2>
-        <input autoFocus type="email" placeholder="exemplo@email.com" />
+        <Input name="email" autoFocus type="email" defaultValue="admin@gympoint.com" 
+          placeholder="exemplo@email.com" />
         <h2>SUA SENHA</h2>
-        <input type="password" placeholder="********" />
+        <Input name="password" type="password" defaultValue="123456" placeholder="********" />
         <button type="submit">Acessar</button>
-      </form>
+      </Form>
     </>
   );
 }

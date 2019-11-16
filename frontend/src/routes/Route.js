@@ -5,19 +5,21 @@ import { Route, Redirect } from 'react-router-dom';
 import AuthLayout from '~/pages/_layouts/auth';
 import DefaultLayout from '~/pages/_layouts/default';
 
+import {isAuthenticated} from '~/services/auth';
+
 export default function RouteWrapper({
   component: Component,
   isPrivate,
   ...rest
 }) {
-  const signed = false;
+  const signed = isAuthenticated();
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/" />;
+    return <Redirect to="/Alunos" />;
   }
 
   const Layout = signed ? DefaultLayout : AuthLayout;
