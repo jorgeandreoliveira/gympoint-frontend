@@ -63,7 +63,9 @@ export const TdCenter = styled.td`
 `;
 
 export const List = styled.table`
-  
+
+  background: #FFF;
+
   th, td {
     padding: 0 0 8px 150px;
   }

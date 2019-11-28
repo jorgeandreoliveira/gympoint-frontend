@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { Container, Content, Profile, List, LinkEditar, 
   LinkApagar, TdCenter } from './styles';
@@ -93,13 +94,13 @@ handleChange(e) {
         <aside>
           <Profile>
             <div>
-              <button>+ CADASTRAR</button>
+              <button onClick={() => history.push("/CadastrarAluno")}>+ CADASTRAR</button>
               <input onChange={this.handleChange} placeholder="Buscar aluno"/> 
             </div>
           </Profile>
         </aside>        
       </Content>
-      <List>        
+      <List>
         <tbody>
           {this.renderTableHeader()}
           {this.renderTableData()}

@@ -22,7 +22,13 @@ export default function Login() {
     const { email, password } = data;
 
     const response = await api.post("/sessions", { email, password });
-    login(response.data.token);
+
+    const { token } = response.data.token;
+
+    login(token);
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     history.push("/Alunos");
     
   }
