@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import api from "../../services/api";
-import history from '../../services/history';
+import api from "~/services/api";
+import history from '~/services/history';
 
 
 import { Container, Content, Profile, ButtonVoltar, ButtonSalvar,
@@ -21,28 +21,58 @@ const schema = Yup.object().shape({
     .positive('Idade inválida'),
 });
 
-export default function CadastrarAluno() {
 
-  async function handleSubmit(data) {
+
+export default class CadastrarAluno extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      aluno: {},
+    }
+  }
+
+  async componentDidMount() {
+
+    const { match } = this.props;
+    
+    if (match.params.id) {
+      const response = await api.get(`/students/${match.params.id}`)
+
+      this.setState({
+        aluno: response.data
+      });
+    }
+  }
+
+  async handleSubmit(data) {
     
     const { nome, email, idade, peso, altura } = data;
 
-    await api.post("/students", { 
-      nome, email, idade, peso, altura 
-    });
+    if (this.state) {
+      await api.put(`/students/${this.state.aluno.id}`, {   
+        nome, email, idade, peso, altura  
+      });
+    }
+    else {  
+      await api.post("/students", { 
+        nome, email, idade, peso, altura 
+      });
+    }
    
     history.push("/Alunos");
   }  
-
-  return (
+    
+  render() {
+  return(
     <Container>
-      <Form schema={schema} onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={this.handleSubmit} initialData={this.state.aluno}>
         <Content>    
           <h1>Cadastro de aluno</h1>        
           <aside>
             <Profile>
               <div>
-                <ButtonVoltar>Voltar</ButtonVoltar>
+                <ButtonVoltar onClick={() => history.push("/Alunos")}>Voltar</ButtonVoltar>
                 <ButtonSalvar type="submit">Salvar</ButtonSalvar>
               </div>
             </Profile>
@@ -66,5 +96,5 @@ export default function CadastrarAluno() {
         </List>
       </Form>    
   </Container>
-  );
+  )}
 }

@@ -17,6 +17,7 @@ export default class Alunos extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 }
   
 async componentDidMount() {
@@ -54,14 +55,27 @@ renderTableData() {
            <td>{email}</td>
            <TdCenter>{idade}</TdCenter>
            <td>
-             <LinkEditar to="">editar</LinkEditar>
+             <LinkEditar to={`/CadastrarAluno/${aluno.id}`}>editar</LinkEditar>
            </td>
            <td>
-             <LinkApagar to="">apagar</LinkApagar>
+             <LinkApagar to="" onClick={() => this.handleDelete(`${aluno.id}`)}>apagar</LinkApagar>
            </td>
         </tr>
      )
   })
+}
+
+handleDelete(id) {
+  
+  api.delete(`/students/${id}`);
+
+  /* const response = api.get("/students");
+
+  this.setState({
+    alunos: response.data
+  });
+
+  this.renderTableData(); */
 }
 
 handleChange(e) {
